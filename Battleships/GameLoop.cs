@@ -26,7 +26,7 @@ namespace Battleships
 
     public void Run()
     {
-      while (!IsGameFinished())
+      while (!IsGameFinished)
       {
         _userInteraction.WriteGrid(_grid);
 
@@ -40,6 +40,6 @@ namespace Battleships
       }
     }
 
-    private bool IsGameFinished() => _ships.All(ship => ship.IsSunk);
+    private bool IsGameFinished => _ships.All(ship => ship.IsSunk);
   }
 }
