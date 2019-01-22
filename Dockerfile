@@ -1,6 +1,8 @@
 FROM microsoft/dotnet:2.2-sdk
+
+# project changes less frequently than the code so restore that first
+COPY *.csproj .
+RUN dotnet restore 
 COPY . .
-RUN dotnet restore
 CMD ["dotnet", "run" ,"--project", "Battleships/Battleships.csproj"]
 
-# Would be nice to have a separate layer here
