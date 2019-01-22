@@ -1,6 +1,6 @@
 # What is this?
 This is implementation of BattleShip code kata.
-You can read reference used for this repository here: https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
+You can read reference used for this repository here: https://medium.com/guestline-labs/hints-for-our-interview-process-and-code-test-ae647325f400
 
 # How to run?
 1) Ensure you have `docker` installed
