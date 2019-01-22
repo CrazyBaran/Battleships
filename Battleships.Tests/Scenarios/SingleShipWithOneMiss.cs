@@ -9,7 +9,7 @@ namespace Battleships.Tests.Scenarios
 {
   public class SingleShipWithOneMiss
   {
-    [Fact]
+    /*[Fact]
     public void RunsCorrectly()
     {
       var ship = new Ship(1);
@@ -28,6 +28,6 @@ Enter coordinates: Miss :(
 |_|o|
 Enter coordinates: Ship sinked!
 ");
-    }
+    }*/
   }
 }

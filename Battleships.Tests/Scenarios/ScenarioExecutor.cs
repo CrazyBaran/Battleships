@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Battleships.Tests.Scenarios
 {
-  public static class ScenarioExecutor
+  public static class ScenarioExecutor // THis is an alternative to the game loop?
   {
-    public static string Execute(string input, ISquare[,] grid)
+    public static string Execute(string input, Grid grid)
     {
       using (var inputStream = input.ToStream())
       {

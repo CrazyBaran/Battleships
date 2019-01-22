@@ -10,7 +10,7 @@ namespace Battleships
   public class StreamUserInteraction : IUserInteraction, IDisposable
   {
     private readonly StreamReader _input;
-    private readonly StreamWriter _output;
+    public readonly StreamWriter _output;
 
     public StreamUserInteraction(Stream input, Stream output)
     {
@@ -18,10 +18,6 @@ namespace Battleships
       _output = new StreamWriter(output, Encoding.UTF8, 1024, leaveOpen: true);
     }
 
-    public void WriteShotResult(ShotStatus shotResult) // is this simply a ShotStatus to string?
-    {
-      _output.WriteLine(shotResult.ToPrettyString());
-    }
 
     public Coordinates ReadCoordinates(int xUpperBound, int yUpperBound)
     {
@@ -33,49 +29,6 @@ namespace Battleships
         var line = _input.ReadLine().Trim();
         if (Coordinates.TryParse(xUpperBound, yUpperBound, line, out Coordinates result))
           return result;
-      }
-    }
-
-    public void WriteGrid(ISquare[,] grid)
-    {
-      _output.WriteLine();
-      for (var row = 0; row < grid.GetLength(0); row++)
-      {
-        _output.Write("|");
-        WriteRow(grid, row);
-
-        _output.WriteLine();
-      }
-    }
-
-    private void WriteRow(ISquare[,] grid, int row)
-    {
-      for (var y = 0; y < grid.GetLength(1); y++)
-      {
-        var square = grid[row, y];
-        WriteSquare(square);
-      }
-    }
-
-    private void WriteSquare(ISquare square)
-    {
-      if (square.State == SquareState.NotShotAt)
-      {
-        _output.Write("_|");
-      }
-
-      else if (square.Ship == null)
-      {
-        _output.Write("o|");
-      }
-
-      else if (square.Ship.IsSunk)
-      {
-        _output.Write("D|");
-      }
-      else
-      {
-        _output.Write("x|");
       }
     }
 

@@ -21,7 +21,7 @@ namespace Battleships
                         new Ship(DestroyerShipSize),
                         new Ship(DestroyerShipSize)
             });
-        var gameLoop = new GameLoop(gridManager._grid, ui);
+        var gameLoop = new GameLoop(gridManager, ui);
         gameLoop.Run();
       }
     }

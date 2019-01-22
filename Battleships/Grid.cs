@@ -1,6 +1,7 @@
 ﻿using Battleships.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Battleships
@@ -33,6 +34,17 @@ namespace Battleships
         }
       }
     }
+
+    public ShotStatus Shoot(Coordinates coordinates) =>
+      _grid[coordinates.X, coordinates.Y].Shoot();
+
+    public bool IsGameFinished => _grid.OfType<ISquare>() // Is this right? Seems to work but others say cast
+          .Select(square => square.Ship)
+          .Where(ship => ship != null)
+          .Distinct().All(ship => ship.IsSunk);
+
+    public int Rows => _grid.GetUpperBound(0);
+    public int Columns => _grid.GetUpperBound(1);
 
     private static ISquare[,] GetEmptyGrid(int gridSize)
     {

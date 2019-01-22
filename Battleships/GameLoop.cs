@@ -8,38 +8,30 @@ namespace Battleships
 {
   public class GameLoop
   {
-    private readonly ISquare[,] _grid;
+    private readonly Grid _grid;
     private readonly IUserInteraction _userInteraction;
-    private readonly IShip[] _ships;
 
-    public GameLoop(ISquare[,] grid, IUserInteraction userInteraction)
+    public GameLoop(Grid grid, IUserInteraction userInteraction)
     {
       _grid = grid;
       _userInteraction = userInteraction;
-      _ships = _grid
-          .OfType<ISquare>() // Is this right? Seems to work but...
-          .Select(square => square.Ship)
-          .Where(ship => ship != null)
-          .Distinct()
-          .ToArray();
     }
 
     public void Run()
     {
-      while (!IsGameFinished)
+      while (!_grid.IsGameFinished)
       {
-        _userInteraction.WriteGrid(_grid);
+        _userInteraction._output.WriteLine(_grid._grid.ToPrettyString());
 
         var coordinates = _userInteraction.ReadCoordinates(
-            xUpperBound: _grid.GetLength(0),
-            yUpperBound: _grid.GetLength(1));
-        var squareToShoot = _grid[coordinates.X, coordinates.Y];
-        var shotResult = squareToShoot.Shoot();
+            xUpperBound: _grid.Rows,
+            yUpperBound: _grid.Columns); // TODO: check that's the right way around
 
-        _userInteraction.WriteShotResult(shotResult);
+        var shotResult = _grid.Shoot(coordinates);
+
+        _userInteraction._output.WriteLine(shotResult.ToPrettyString());
       }
     }
 
-    private bool IsGameFinished => _ships.All(ship => ship.IsSunk);
   }
 }
