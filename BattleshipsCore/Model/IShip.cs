@@ -7,5 +7,6 @@ namespace Battleships.Core.Model
     public interface IShip
     {
         ShotStatus Shoot();
+        bool IsSunk();
     }
 }

@@ -5,11 +5,11 @@ namespace Battleships.Core.Model
     public class Square : ISquare
     {
         private SquareState _state = SquareState.NotShotAt;
-        private IShip _ship;
+        public IShip Ship { get; private set; }
 
         public Square(IShip ship = null)
         {
-            _ship = ship;
+            Ship = ship;
         }
 
         public ShotStatus Shoot()
@@ -17,12 +17,12 @@ namespace Battleships.Core.Model
             if (_state == SquareState.ShotAt) return ShotStatus.Repeated;
 
             _state = SquareState.ShotAt;
-            if(_ship == null)
+            if(Ship == null)
             {
                 return ShotStatus.Miss;
             }
 
-            return _ship.Shoot();
+            return Ship.Shoot();
         }
     }
 }

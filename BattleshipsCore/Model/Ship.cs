@@ -6,15 +6,17 @@ namespace Battleships.Core.Model
     {
         private int _remainingLife;
 
-        public Ship(int remainingLife)
+        public Ship(int life)
         {
-            _remainingLife = remainingLife;
+            _remainingLife = life;
         }
+
+        public bool IsSunk() => _remainingLife <= 0;
 
         public ShotStatus Shoot()
         {
             _remainingLife--;
-            if(_remainingLife <= 0)
+            if(IsSunk())
             {
                 return ShotStatus.Sink;
             }

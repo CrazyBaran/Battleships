@@ -18,5 +18,11 @@ namespace Battleships.Core.Tests.Model
 
             shotStatus.ShouldBe(expectedStatus);
         }
+
+        [Fact]
+        public void WhenRemainingLifeIs0ShouldBeSunk()
+        {
+            new Ship(0).IsSunk().ShouldBe(true);
+        }
     }
 }
