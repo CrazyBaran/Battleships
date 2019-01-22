@@ -39,34 +39,44 @@ namespace Battleships
     public void WriteGrid(ISquare[,] grid)
     {
       _output.WriteLine();
-      for (var x = 0; x < grid.GetLength(0); x++)
+      for (var row = 0; row < grid.GetLength(0); row++)
       {
         _output.Write("|");
-        for (var y = 0; y < grid.GetLength(1); y++)
-        {
-          var square = grid[x, y];
-          if (square.State == SquareState.NotShotAt)
-          {
-            _output.Write("_|");
-            continue;
-          }
-
-          if (square.Ship == null)
-          {
-            _output.Write("o|");
-            continue;
-          }
-
-          if (square.Ship.IsSunk)
-          {
-            _output.Write("D|");
-            continue;
-          }
-
-          _output.Write("x|");
-        }
+        WriteRow(grid, row);
 
         _output.WriteLine();
+      }
+    }
+
+    private void WriteRow(ISquare[,] grid, int row)
+    {
+      for (var y = 0; y < grid.GetLength(1); y++)
+      {
+        var square = grid[row, y];
+        WriteSquare(square);
+
+      }
+    }
+
+    private void WriteSquare(ISquare square)
+    {
+      if (square.State == SquareState.NotShotAt)
+      {
+        _output.Write("_|");
+      }
+
+      else if (square.Ship == null)
+      {
+        _output.Write("o|");
+      }
+
+      else if (square.Ship.IsSunk)
+      {
+        _output.Write("D|");
+      }
+      else
+      {
+        _output.Write("x|");
       }
     }
 
