@@ -18,10 +18,9 @@ namespace Battleships.Core.Tests
           .Setup(random => random.GetCoordinates(It.IsAny<int>(), It.IsAny<int>()))
           .Returns((new Coordinates(2, 2), Orientation.Horizontal));
 
-      var gridGenerator = new GridManager(randomProviderMock.Object);
-      var grid = gridGenerator.GetEmptyGrid(10);
+      var grid = GridManager.GetEmptyGrid(10);
       var ship = new Ship(2);
-
+      var gridGenerator = new GridManager(randomProviderMock.Object);
       gridGenerator.PlaceShips(grid, new[] { ship });
 
       grid[2, 2].Ship.ShouldBe(ship);
@@ -51,7 +50,7 @@ namespace Battleships.Core.Tests
           });
 
       var gridGenerator = new GridManager(randomProviderMock.Object);
-      var grid = gridGenerator.GetEmptyGrid(10);
+      var grid = GridManager.GetEmptyGrid(10);
       var shipA = new Ship(3);
       grid[1, 1] = new Square(shipA);
       grid[2, 1] = new Square(shipA);

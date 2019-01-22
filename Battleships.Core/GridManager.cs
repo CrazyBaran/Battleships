@@ -34,7 +34,9 @@ namespace Battleships.Core
       }
     }
 
-    public ISquare[,] GetEmptyGrid(int gridSize)
+    // Unrelated functionality
+
+    public static ISquare[,] GetEmptyGrid(int gridSize)
     {
       var grid = new Square[gridSize, gridSize];
       for (var x = 0; x < grid.GetLength(0); x++)
@@ -51,7 +53,7 @@ namespace Battleships.Core
       return grid;
     }
 
-    private bool TryPlaceShip(
+    private static bool TryPlaceShip(
         ISquare[,] grid,
         IShip ship,
         Orientation orientation,
@@ -75,7 +77,7 @@ namespace Battleships.Core
       return true;
     }
 
-    private bool IsGridFree(
+    private static bool IsGridFree(
         ISquare[,] grid,
         Orientation orientation,
         Coordinates coordinates,

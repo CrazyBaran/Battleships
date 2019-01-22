@@ -7,6 +7,25 @@ using System.Text;
 
 namespace Battleships
 {
+  static class ShotStatusExtension
+  {
+    public static string ToPrettyString(this ShotStatus status)
+    {
+      switch (status)
+      {
+        case ShotStatus.Hit:
+          return "HIT!";
+        case ShotStatus.Miss:
+          return "Miss :(";
+        case ShotStatus.Repeated:
+          return "This square was already shot";
+        case ShotStatus.Sink:
+          return "Ship sinked!";
+        default:
+          throw new NotImplementedException();
+      }
+    }
+  }
   public class StreamUserInteraction : IUserInteraction, IDisposable
   {
     private readonly StreamReader _input;
@@ -20,21 +39,7 @@ namespace Battleships
 
     public void WriteShotResult(ShotStatus shotResult) // is this simply a ShotStatus to string?
     {
-      switch (shotResult)
-      {
-        case ShotStatus.Hit:
-          _output.WriteLine("HIT!");
-          break;
-        case ShotStatus.Miss:
-          _output.WriteLine("Miss :(");
-          break;
-        case ShotStatus.Repeated:
-          _output.WriteLine("This square was already shot");
-          break;
-        case ShotStatus.Sink:
-          _output.WriteLine("Ship sinked!");
-          break;
-      }
+      _output.WriteLine(shotResult.ToPrettyString());
     }
 
     public Coordinates ReadCoordinates(int xUpperBound, int yUpperBound)
@@ -45,27 +50,9 @@ namespace Battleships
         _output.Flush();
 
         var line = _input.ReadLine().Trim();
-        if (TryParse(xUpperBound, yUpperBound, line, out Coordinates result))
+        if (Coordinates.TryParse(xUpperBound, yUpperBound, line, out Coordinates result))
           return result;
       }
-    }
-
-    private static bool TryParse(int xUpperBound, int yUpperBound, string line, out Coordinates result)
-    {
-      result = null;
-      if (line.Length >= 2)
-      {
-        var x = line[0].ToNumber();
-        if (x != null
-            && int.TryParse(line.Substring(1), out int y)
-            && x >= 0 && x <= xUpperBound
-            && y >= 0 && y <= yUpperBound)
-        {
-          result = new Coordinates(x.Value - 1, y - 1);
-        }
-      }
-
-      return result != null;
     }
 
     public void WriteGrid(ISquare[,] grid)
