@@ -9,5 +9,6 @@ namespace Battleships.Core
     {
         Coordinates GetCoordinates(int xUpperBound, int yUpperBound);
         void DisplayShotResult(ShotStatus shotResult);
+        void DisplayGrid(ISquare[,] grid);
     }
 }

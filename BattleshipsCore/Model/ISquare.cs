@@ -6,6 +6,7 @@ namespace Battleships.Core.Model
 {
     public interface ISquare
     {
+        SquareState State { get; }
         IShip Ship { get; }
         ShotStatus Shoot();
     }

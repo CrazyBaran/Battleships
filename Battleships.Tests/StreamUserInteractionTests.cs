@@ -1,4 +1,6 @@
-﻿using Battleships.Tests.Utils;
+﻿using Battleships.Core.Model;
+using Battleships.Tests.Utils;
+using Moq;
 using Shouldly;
 using System;
 using System.Collections.Generic;

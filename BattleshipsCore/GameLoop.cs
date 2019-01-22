@@ -28,7 +28,7 @@ namespace Battleships.Core
         {
             while(!IsGameFinished())
             {
-                //DisplayGrid()
+                _userInteraction.DisplayGrid(_grid);
                 var coordinates = _userInteraction.GetCoordinates(
                     xUpperBound: _grid.GetLength(0),
                     yUpperBound: _grid.GetLength(1));

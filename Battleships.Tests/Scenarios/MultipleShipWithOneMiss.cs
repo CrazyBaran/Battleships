@@ -28,9 +28,17 @@ B2
 
             var output = ScenarioExecutor.Execute(input, grid);
 
-            output.ShouldBe(@"Enter coordinates: Ship sinked!
+            output.ShouldBe(@"|_|_|
+|_|_|
+Enter coordinates: Ship sinked!
+|D|_|
+|_|_|
 Enter coordinates: HIT!
+|D|_|
+|x|_|
 Enter coordinates: Miss :(
+|D|o|
+|x|_|
 Enter coordinates: Ship sinked!
 ");
         }

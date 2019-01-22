@@ -21,7 +21,9 @@ A1
 
             var output = ScenarioExecutor.Execute(input, grid);
 
-            output.ShouldBe(@"Enter coordinates: Miss :(
+            output.ShouldBe(@"|_|_|
+Enter coordinates: Miss :(
+|_|o|
 Enter coordinates: Ship sinked!
 ");
         }

@@ -11,11 +11,13 @@ namespace Battleships
     {
         private readonly StreamReader _input;
         private readonly StreamWriter _output;
+        private readonly bool _displayBoard;
 
-        public StreamUserInteraction(Stream input, Stream output)
+        public StreamUserInteraction(Stream input, Stream output, bool displayBoard = true)
         {
             _input = new StreamReader(input);
             _output = new StreamWriter(output, Encoding.UTF8, 1024, leaveOpen: true);
+            _displayBoard = displayBoard;
         }
 
         public void DisplayShotResult(ShotStatus shotResult)
@@ -58,6 +60,40 @@ namespace Battleships
             }
 
             return result;
+        }
+
+        public void DisplayGrid(ISquare[,] grid)
+        {
+            if (!_displayBoard) return;
+            for(var x = 0;x < grid.GetLength(0);x++)
+            {
+                _output.Write("|");
+                for (var y = 0;y < grid.GetLength(1);y++)
+                {
+                    var square = grid[x, y];
+                    if(square.State == SquareState.NotShotAt)
+                    {
+                        _output.Write("_|");
+                        continue;
+                    }
+
+                    if (square.Ship == null)
+                    {
+                        _output.Write("o|");
+                        continue;
+                    }
+
+                    if(square.Ship.IsSunk())
+                    {
+                        _output.Write("D|");
+                        continue;
+                    }
+
+                    _output.Write("x|");
+                }
+
+                _output.WriteLine();
+            }
         }
 
         public void Dispose()
