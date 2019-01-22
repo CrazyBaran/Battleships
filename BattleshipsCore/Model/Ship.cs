@@ -5,10 +5,12 @@ namespace Battleships.Core.Model
     public class Ship : IShip
     {
         private int _remainingLife;
+        public int Size { get; private set; }
 
-        public Ship(int life)
+        public Ship(int size)
         {
-            _remainingLife = life;
+            Size = size;
+            _remainingLife = size;
         }
 
         public bool IsSunk() => _remainingLife <= 0;

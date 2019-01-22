@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Battleships.Core.Model
 {
-    public interface IShip
+    public enum Orientation
     {
-        int Size { get; }
-        ShotStatus Shoot();
-        bool IsSunk();
+        Horizontal,
+        Vertical
     }
 }

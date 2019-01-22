@@ -37,9 +37,9 @@ namespace Battleships
             }
         }
 
-        public (int X, int Y) GetCoordinates(int xUpperBound, int yUpperBound)
+        public Coordinates GetCoordinates(int xUpperBound, int yUpperBound)
         {
-            (int X, int Y)? result = null;
+            Coordinates result = null;
             while (result == null)
             {
                 _output.Write("Enter coordinates: ");
@@ -52,12 +52,12 @@ namespace Battleships
                         && x >= 0 && x <= xUpperBound
                         && y >= 0 && y <= yUpperBound)
                     {
-                        result = (x.Value - 1, y - 1);
+                        result = new Coordinates(x.Value - 1, y - 1);
                     }
                 }
             }
 
-            return result.Value;
+            return result;
         }
 
         public void Dispose()
