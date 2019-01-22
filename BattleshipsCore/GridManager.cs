@@ -5,18 +5,19 @@ using System.Text;
 
 namespace Battleships.Core
 {
-    public class GridGenerator
+    public class GridManager
     {
         private readonly IRandomProvider _random;
 
-        public GridGenerator(IRandomProvider random)
+        public GridManager(IRandomProvider random)
         {
             _random = random;
         }
 
-        public ISquare[,] Generate(int gridSize, IShip[] ships)
+        public void PlaceShips(ISquare[,] grid, IShip[] ships)
         {
-            var grid = new Square[gridSize, gridSize];
+            // assuming that grid is a square
+            var gridSize = grid.GetLength(0);
             foreach (var ship in ships)
             {
                 bool wasShipSuccesfullyPlaced = false;
@@ -25,14 +26,18 @@ namespace Battleships.Core
                     var orientation = _random.GetOrientation();
                     var coordinates = _random.GetCoordinates(gridSize, ship.Size, orientation);
                     wasShipSuccesfullyPlaced = TryPlaceShip(
-                        grid, 
-                        ship, 
-                        orientation, 
+                        grid,
+                        ship,
+                        orientation,
                         coordinates
                         );
                 }
             }
-            
+        }
+
+        public ISquare[,] GetEmptyGrid(int gridSize)
+        {
+            var grid = new Square[gridSize, gridSize];
             for (var x = 0; x < grid.GetLength(0); x++)
             {
                 for (var y = 0; y < grid.GetLength(1); y++)
@@ -80,17 +85,14 @@ namespace Battleships.Core
         {
             for (var i = 0; i < length; i++)
             {
-                if (orientation == Orientation.Vertical
-                    && grid[coordinates.X + i, coordinates.Y] != null)
-                {
-                    return false;
-                }
-                
-                if(orientation == Orientation.Horizontal
-                    && grid[coordinates.X, coordinates.Y + i] != null)
-                {
-                    return false;
-                }
+                var x = orientation == Orientation.Vertical 
+                    ? coordinates.X + i 
+                    : coordinates.X;
+                var y = orientation == Orientation.Horizontal
+                    ? coordinates.Y + 1
+                    : coordinates.Y;
+
+                if (grid[x, y]?.Ship != null) return false;
             }
 
             return true;
