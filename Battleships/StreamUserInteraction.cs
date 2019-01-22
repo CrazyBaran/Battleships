@@ -39,26 +39,33 @@ namespace Battleships
 
     public Coordinates ReadCoordinates(int xUpperBound, int yUpperBound)
     {
-      Coordinates result = null;
-      while (result == null)
+      while (true)
       {
         _output.Write("Enter coordinates: ");
         _output.Flush();
+
         var line = _input.ReadLine().Trim();
-        if (line.Length >= 2)
+        if (TryParse(xUpperBound, yUpperBound, line, out Coordinates result))
+          return result;
+      }
+    }
+
+    private static bool TryParse(int xUpperBound, int yUpperBound, string line, out Coordinates result)
+    {
+      result = null;
+      if (line.Length >= 2)
+      {
+        var x = line[0].ToNumber();
+        if (x != null
+            && int.TryParse(line.Substring(1), out int y)
+            && x >= 0 && x <= xUpperBound
+            && y >= 0 && y <= yUpperBound)
         {
-          var x = line[0].ToNumber();
-          if (x != null
-              && int.TryParse(line.Substring(1), out int y)
-              && x >= 0 && x <= xUpperBound
-              && y >= 0 && y <= yUpperBound)
-          {
-            result = new Coordinates(x.Value - 1, y - 1);
-          }
+          result = new Coordinates(x.Value - 1, y - 1);
         }
       }
 
-      return result;
+      return result != null;
     }
 
     public void WriteGrid(ISquare[,] grid)
