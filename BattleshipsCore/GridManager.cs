@@ -7,9 +7,9 @@ namespace Battleships.Core
 {
     public class GridManager
     {
-        private readonly IRandomProvider _random;
+        private readonly ICoordinatesProvider _random;
 
-        public GridManager(IRandomProvider random)
+        public GridManager(ICoordinatesProvider random)
         {
             _random = random;
         }
@@ -23,8 +23,7 @@ namespace Battleships.Core
                 bool wasShipSuccesfullyPlaced = false;
                 while (!wasShipSuccesfullyPlaced)
                 {
-                    var orientation = _random.GetOrientation();
-                    var coordinates = _random.GetCoordinates(gridSize, ship.Size, orientation);
+                    var (coordinates, orientation) = _random.GetCoordinates(gridSize, ship.Size);
                     wasShipSuccesfullyPlaced = TryPlaceShip(
                         grid,
                         ship,

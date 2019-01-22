@@ -13,7 +13,7 @@ namespace Battleships
             Console.WriteLine("In galaxy far far away");
             using (var ui = new StreamUserInteraction(Console.OpenStandardInput(), Console.OpenStandardOutput()))
             {
-                var gridManager = new GridManager(new DefaultRandomProvider());
+                var gridManager = new GridManager(new RandomCoordinatesProvider());
                 var grid = gridManager.GetEmptyGrid(10);
                 gridManager.PlaceShips(
                     grid,
