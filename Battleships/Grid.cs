@@ -5,19 +5,20 @@ using System.Text;
 
 namespace Battleships
 {
-  public class GridManager // Manager naming is a smell
+  public class Grid
   {
     private readonly ICoordinatesProvider _random;
-
-    public GridManager(ICoordinatesProvider random)
+    public readonly ISquare[,] _grid; // TODO: remove hack
+    public Grid(ICoordinatesProvider random, int size)
     {
       _random = random;
+      _grid = GetEmptyGrid(size);
     }
 
-    public void PlaceShips(ISquare[,] grid, IShip[] ships)
+    public void PlaceShips(IShip[] ships)
     {
       // assuming that grid is a square
-      var gridSize = grid.GetLength(0);
+      var gridSize = _grid.GetLength(0);
       foreach (var ship in ships)
       {
         bool wasShipSuccesfullyPlaced = false;
@@ -25,7 +26,6 @@ namespace Battleships
         {
           var (coordinates, orientation) = _random.GetCoordinates(gridSize, ship.Size);
           wasShipSuccesfullyPlaced = TryPlaceShip(
-              grid,
               ship,
               orientation,
               coordinates
@@ -34,9 +34,7 @@ namespace Battleships
       }
     }
 
-    // Unrelated functionality
-
-    public static ISquare[,] GetEmptyGrid(int gridSize)
+    private static ISquare[,] GetEmptyGrid(int gridSize)
     {
       var grid = new Square[gridSize, gridSize];
       for (var x = 0; x < grid.GetLength(0); x++)
@@ -53,32 +51,30 @@ namespace Battleships
       return grid;
     }
 
-    private static bool TryPlaceShip(
-        ISquare[,] grid,
+    private bool TryPlaceShip(
         IShip ship,
         Orientation orientation,
         Coordinates coordinates
         )
     {
-      if (!IsGridFree(grid, orientation, coordinates, ship.Size)) return false;
+      if (!IsGridFree(orientation, coordinates, ship.Size)) return false;
 
       for (var i = 0; i < ship.Size; i++)
       {
         if (orientation == Orientation.Vertical)
         {
-          grid[coordinates.X + i, coordinates.Y] = new Square(ship);
+          _grid[coordinates.X + i, coordinates.Y] = new Square(ship);
         }
         else
         {
-          grid[coordinates.X, coordinates.Y + i] = new Square(ship);
+          _grid[coordinates.X, coordinates.Y + i] = new Square(ship);
         }
       }
 
       return true;
     }
 
-    private static bool IsGridFree(
-        ISquare[,] grid,
+    private bool IsGridFree(
         Orientation orientation,
         Coordinates coordinates,
         int length
@@ -86,6 +82,7 @@ namespace Battleships
     {
       for (var i = 0; i < length; i++)
       {
+        // TODO: use this style elsewhere too
         var x = orientation == Orientation.Vertical
             ? coordinates.X + i
             : coordinates.X;
@@ -93,7 +90,7 @@ namespace Battleships
             ? coordinates.Y + 1
             : coordinates.Y;
 
-        if (grid[x, y]?.Ship != null) return false;
+        if (_grid[x, y]?.Ship != null) return false;
       }
 
       return true;

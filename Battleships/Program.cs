@@ -13,17 +13,15 @@ namespace Battleships
       Console.WriteLine("In galaxy far far away");
       using (var ui = new StreamUserInteraction(Console.OpenStandardInput(), Console.OpenStandardOutput()))
       {
-        var gridManager = new GridManager(new RandomCoordinatesProvider());
-        var grid = GridManager.GetEmptyGrid(10);
+        var gridManager = new Grid(new RandomCoordinatesProvider(), 10);
         gridManager.PlaceShips(
-            grid,
             new[]
             {
                         new Ship(BattleShipSize),
                         new Ship(DestroyerShipSize),
                         new Ship(DestroyerShipSize)
             });
-        var gameLoop = new GameLoop(grid, ui);
+        var gameLoop = new GameLoop(gridManager._grid, ui);
         gameLoop.Run();
       }
     }

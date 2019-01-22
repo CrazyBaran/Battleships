@@ -18,14 +18,13 @@ namespace Battleships.Tests
           .Setup(random => random.GetCoordinates(It.IsAny<int>(), It.IsAny<int>()))
           .Returns((new Coordinates(2, 2), Orientation.Horizontal));
 
-      var grid = GridManager.GetEmptyGrid(10);
       var ship = new Ship(2);
-      var gridGenerator = new GridManager(randomProviderMock.Object);
-      gridGenerator.PlaceShips(grid, new[] { ship });
+      var gridGenerator = new Grid(randomProviderMock.Object, 10);
+      gridGenerator.PlaceShips(new[] { ship });
 
-      grid[2, 2].Ship.ShouldBe(ship);
-      grid[2, 3].Ship.ShouldBe(ship);
-      grid[2, 4].Ship.ShouldNotBe(ship);
+      gridGenerator._grid[2, 2].Ship.ShouldBe(ship);
+      gridGenerator._grid[2, 3].Ship.ShouldBe(ship);
+      gridGenerator._grid[2, 4].Ship.ShouldNotBe(ship);
     }
 
     [Fact]
@@ -49,20 +48,19 @@ namespace Battleships.Tests
             return (coordinates, Orientation.Horizontal);
           });
 
-      var gridGenerator = new GridManager(randomProviderMock.Object);
-      var grid = GridManager.GetEmptyGrid(10);
+      var gridGenerator = new Grid(randomProviderMock.Object, 10);
       var shipA = new Ship(3);
-      grid[1, 1] = new Square(shipA);
-      grid[2, 1] = new Square(shipA);
-      grid[3, 1] = new Square(shipA);
+      gridGenerator._grid[1, 1] = new Square(shipA);
+      gridGenerator._grid[2, 1] = new Square(shipA);
+      gridGenerator._grid[3, 1] = new Square(shipA);
       var shipB = new Ship(2);
 
 
-      gridGenerator.PlaceShips(grid, new[] { shipB });
+      gridGenerator.PlaceShips(new[] { shipB });
 
-      grid[0, 0].Ship.ShouldBe(shipB);
-      grid[0, 1].Ship.ShouldBe(shipB);
-      grid[0, 2].Ship.ShouldNotBe(shipB);
+      gridGenerator._grid[0, 0].Ship.ShouldBe(shipB);
+      gridGenerator._grid[0, 1].Ship.ShouldBe(shipB);
+      gridGenerator._grid[0, 2].Ship.ShouldNotBe(shipB);
     }
   }
 }
