@@ -23,7 +23,7 @@ namespace Battleships.Core.Tests
                 userInteraction: userInteractionMock.Object
                 );
 
-            gameLoop.Start();
+            gameLoop.Run();
 
             // if this test were to fail we would get a timeout or error
             // from user interaction mock

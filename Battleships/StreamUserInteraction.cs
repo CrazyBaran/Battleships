@@ -44,15 +44,15 @@ namespace Battleships
             {
                 _output.Write("Enter coordinates: ");
                 var line = _input.ReadLine().Trim();
-                if (line.Length == 2)
+                if (line.Length >= 2)
                 {
                     var x = line[0].ToNumber();
                     if (x != null
-                        && int.TryParse(line[1].ToString(), out int y)
-                        && x >= 0 && x < xUpperBound
-                        && y >= 0 && y < yUpperBound)
+                        && int.TryParse(line.Substring(1), out int y)
+                        && x >= 0 && x <= xUpperBound
+                        && y >= 0 && y <= yUpperBound)
                     {
-                        result = (x.Value, y);
+                        result = (x.Value - 1, y - 1);
                     }
                 }
             }

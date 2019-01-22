@@ -31,5 +31,23 @@ namespace Battleships.Tests
                 streamReader.ReadToEnd().ShouldBe(expectedOutput);
             }
         }
+
+        [Theory]
+        [InlineData("A1\n", 0, 0)]
+        [InlineData("A9\n", 0, 8)]
+        [InlineData("J1\n", 9, 0)]
+        [InlineData("J10\n", 9, 9)]
+        public void GetCoordinatesCorrectlyPassesCoordinates(string input, int expectedX, int expectedY)
+        {
+            using (var inputStream = input.ToStream())
+            {
+                using (var ui = new StreamUserInteraction(inputStream, new MemoryStream()))
+                {
+                    var coordinates = ui.GetCoordinates(10, 10);
+                    coordinates.X.ShouldBe(expectedX);
+                    coordinates.Y.ShouldBe(expectedY);
+                }
+            }
+        }
     }
 }

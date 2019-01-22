@@ -19,11 +19,12 @@ namespace Battleships.Core
             _ships = _grid
                 .OfType<ISquare>()
                 .Select(square => square.Ship)
+                .Where(ship => ship != null)
                 .Distinct()
                 .ToArray();
         }
 
-        public void Start()
+        public void Run()
         {
             while(!IsGameFinished())
             {
