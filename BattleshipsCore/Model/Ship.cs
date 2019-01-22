@@ -13,12 +13,12 @@ namespace Battleships.Core.Model
             _remainingLife = size;
         }
 
-        public bool IsSunk() => _remainingLife <= 0;
+        public bool IsSunk => _remainingLife <= 0;
 
         public ShotStatus Shoot()
         {
             _remainingLife--;
-            if(IsSunk())
+            if(IsSunk)
             {
                 return ShotStatus.Sink;
             }

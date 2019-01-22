@@ -82,7 +82,7 @@ namespace Battleships
                         continue;
                     }
 
-                    if(square.Ship.IsSunk())
+                    if(square.Ship.IsSunk)
                     {
                         _output.Write("D|");
                         continue;

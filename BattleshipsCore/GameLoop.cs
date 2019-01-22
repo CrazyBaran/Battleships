@@ -38,6 +38,6 @@ namespace Battleships.Core
             }
         }
 
-        private bool IsGameFinished() => _ships.All(ship => ship.IsSunk());
+        private bool IsGameFinished() => _ships.All(ship => ship.IsSunk);
     }
 }

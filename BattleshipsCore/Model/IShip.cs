@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Battleships.Core.Model
 {
-    public interface IShip
-    {
-        int Size { get; }
-        ShotStatus Shoot();
-        bool IsSunk();
-    }
+  public interface IShip
+  {
+    int Size { get; }
+    ShotStatus Shoot();
+    bool IsSunk { get; }
+  }
 }
