@@ -54,7 +54,6 @@ namespace Battleships
       {
         var square = grid[row, y];
         WriteSquare(square);
-
       }
     }
 

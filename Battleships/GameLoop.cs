@@ -17,7 +17,7 @@ namespace Battleships
       _grid = grid;
       _userInteraction = userInteraction;
       _ships = _grid
-          .OfType<ISquare>()
+          .OfType<ISquare>() // Is this right? Seems to work but...
           .Select(square => square.Ship)
           .Where(ship => ship != null)
           .Distinct()
@@ -29,11 +29,13 @@ namespace Battleships
       while (!IsGameFinished())
       {
         _userInteraction.WriteGrid(_grid);
+
         var coordinates = _userInteraction.ReadCoordinates(
             xUpperBound: _grid.GetLength(0),
             yUpperBound: _grid.GetLength(1));
         var squareToShoot = _grid[coordinates.X, coordinates.Y];
         var shotResult = squareToShoot.Shoot();
+
         _userInteraction.WriteShotResult(shotResult);
       }
     }
