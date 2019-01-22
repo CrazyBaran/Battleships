@@ -25,7 +25,7 @@ namespace Battleships.Tests
                 var outputStream = new MemoryStream();
                 using (var ui = new StreamUserInteraction(inputStream, outputStream))
                 {
-                    ui.GetCoordinates(10, 10);
+                    ui.ReadCoordinates(10, 10);
                 }
 
                 outputStream.Position = 0;
@@ -45,7 +45,7 @@ namespace Battleships.Tests
             {
                 using (var ui = new StreamUserInteraction(inputStream, new MemoryStream()))
                 {
-                    var coordinates = ui.GetCoordinates(10, 10);
+                    var coordinates = ui.ReadCoordinates(10, 10);
                     coordinates.X.ShouldBe(expectedX);
                     coordinates.Y.ShouldBe(expectedY);
                 }

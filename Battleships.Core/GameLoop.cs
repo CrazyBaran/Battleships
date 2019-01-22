@@ -28,13 +28,13 @@ namespace Battleships.Core
         {
             while(!IsGameFinished())
             {
-                _userInteraction.DisplayGrid(_grid);
-                var coordinates = _userInteraction.GetCoordinates(
+                _userInteraction.WriteGrid(_grid);
+                var coordinates = _userInteraction.ReadCoordinates(
                     xUpperBound: _grid.GetLength(0),
                     yUpperBound: _grid.GetLength(1));
                 var squareToShoot = _grid[coordinates.X, coordinates.Y];
                 var shotResult = squareToShoot.Shoot();
-                _userInteraction.DisplayShotResult(shotResult);
+                _userInteraction.WriteShotResult(shotResult);
             }
         }
 
