@@ -7,7 +7,13 @@ namespace Battleships.Core
 {
     public class GridGenerator
     {
-        private Random random = new Random();
+        private readonly IRandomNumberProvider _random;
+
+        public GridGenerator(IRandomNumberProvider random)
+        {
+            _random = random;
+        }
+
         public ISquare[,] Generate(int gridSize, IShip[] ships)
         {
             var grid = new Square[gridSize, gridSize];
@@ -41,15 +47,15 @@ namespace Battleships.Core
             if (orientation == Orientation.Vertical)
             {
                 return new Coordinates(
-                    x: random.Next(gridSize - ship.Size + 1),
-                    y: random.Next(gridSize)
+                    x: _random.Next(gridSize - ship.Size + 1),
+                    y: _random.Next(gridSize)
                     );
             }
             else
             {
                 return new Coordinates(
-                    x: random.Next(gridSize),
-                    y: random.Next(gridSize - ship.Size + 1)
+                    x: _random.Next(gridSize),
+                    y: _random.Next(gridSize - ship.Size + 1)
                     );
             }
         }
@@ -105,7 +111,7 @@ namespace Battleships.Core
 
         private Orientation GetRandomOrientation()
         {
-            if (random.Next() % 2 == 0) return Orientation.Horizontal;
+            if (_random.Next() % 2 == 0) return Orientation.Horizontal;
             return Orientation.Vertical;
         }
     }
