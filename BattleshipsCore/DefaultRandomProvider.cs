@@ -9,7 +9,7 @@ namespace Battleships.Core
     {
         private Random _random = new Random();
 
-        public Coordinates GetPosition(int gridSize, int shipSize, Orientation orientation)
+        public Coordinates GetCoordinates(int gridSize, int shipSize, Orientation orientation)
         {
             if (orientation == Orientation.Vertical)
             {

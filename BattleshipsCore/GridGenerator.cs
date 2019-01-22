@@ -23,7 +23,7 @@ namespace Battleships.Core
                 while (!wasShipSuccesfullyPlaced)
                 {
                     var orientation = _random.GetOrientation();
-                    var coordinates = _random.GetPosition(gridSize, ship.Size, orientation);
+                    var coordinates = _random.GetCoordinates(gridSize, ship.Size, orientation);
                     wasShipSuccesfullyPlaced = TryPlaceShip(
                         grid, 
                         ship, 

@@ -7,7 +7,7 @@ namespace Battleships.Core
 {
     public interface IRandomProvider
     {
-        Coordinates GetPosition(int gridSize, int shipSize, Orientation orientation);
+        Coordinates GetCoordinates(int gridSize, int shipSize, Orientation orientation);
 
         Orientation GetOrientation();
     }
