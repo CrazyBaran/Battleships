@@ -7,9 +7,9 @@ namespace Battleships.Core
 {
     public class GridGenerator
     {
-        private readonly IRandomNumberProvider _random;
+        private readonly IRandomProvider _random;
 
-        public GridGenerator(IRandomNumberProvider random)
+        public GridGenerator(IRandomProvider random)
         {
             _random = random;
         }
@@ -22,9 +22,14 @@ namespace Battleships.Core
                 bool wasShipSuccesfullyPlaced = false;
                 while (!wasShipSuccesfullyPlaced)
                 {
-                    var orientation = GetRandomOrientation();
-                    var coordinates = GetRandomPosition(gridSize, ship, orientation);
-                    wasShipSuccesfullyPlaced = TryPlaceShip(grid, ship, orientation, coordinates);
+                    var orientation = _random.GetOrientation();
+                    var coordinates = _random.GetPosition(gridSize, ship.Size, orientation);
+                    wasShipSuccesfullyPlaced = TryPlaceShip(
+                        grid, 
+                        ship, 
+                        orientation, 
+                        coordinates
+                        );
                 }
             }
             
@@ -40,24 +45,6 @@ namespace Battleships.Core
             }
 
             return grid;
-        }
-
-        private Coordinates GetRandomPosition(int gridSize, IShip ship, Orientation orientation)
-        {
-            if (orientation == Orientation.Vertical)
-            {
-                return new Coordinates(
-                    x: _random.Next(gridSize - ship.Size + 1),
-                    y: _random.Next(gridSize)
-                    );
-            }
-            else
-            {
-                return new Coordinates(
-                    x: _random.Next(gridSize),
-                    y: _random.Next(gridSize - ship.Size + 1)
-                    );
-            }
         }
 
         private bool TryPlaceShip(
@@ -107,12 +94,6 @@ namespace Battleships.Core
             }
 
             return true;
-        }
-
-        private Orientation GetRandomOrientation()
-        {
-            if (_random.Next() % 2 == 0) return Orientation.Horizontal;
-            return Orientation.Vertical;
         }
     }
 }
