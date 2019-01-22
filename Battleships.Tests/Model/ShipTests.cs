@@ -1,9 +1,9 @@
-using Battleships.Core.Model;
+using Battleships.Model;
 using Shouldly;
 using System;
 using Xunit;
 
-namespace Battleships.Core.Tests.Model
+namespace Battleships.Tests.Model
 {
   public class ShipTests
   {

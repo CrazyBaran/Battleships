@@ -4,9 +4,4 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Battleships.Core\Battleships.Core.csproj" />
-  </ItemGroup>
-
 </Project>

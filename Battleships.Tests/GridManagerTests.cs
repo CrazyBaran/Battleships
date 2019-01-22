@@ -1,4 +1,4 @@
-﻿using Battleships.Core.Model;
+﻿using Battleships.Model;
 using Moq;
 using Shouldly;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Battleships.Core.Tests
+namespace Battleships.Tests
 {
   public class GridManagerTests
   {

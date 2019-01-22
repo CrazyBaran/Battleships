@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Battleships.Core.Model;
+using Battleships.Model;
 
-namespace Battleships.Core
+namespace Battleships
 {
   public interface IUserInteraction
   {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Battleships.Core.Model
+namespace Battleships.Model
 {
   public class Coordinates
   {

@@ -1,9 +1,9 @@
-﻿using Battleships.Core.Model;
+﻿using Battleships.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Battleships.Core
+namespace Battleships
 {
   public class GridManager // Manager naming is a smell
   {

@@ -1,4 +1,4 @@
-﻿using Battleships.Core.Model;
+﻿using Battleships.Model;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -7,22 +7,22 @@ using Xunit;
 
 namespace Battleships.Tests.Scenarios
 {
-    public class SingleShipOnOneSquareGrid
+  public class SingleShipOnOneSquareGrid
+  {
+    [Fact]
+    public void RunsCorrectly()
     {
-        [Fact]
-        public void RunsCorrectly()
-        {
-            var ship = new Ship(1);
-            var grid = new Square[,] { { new Square(ship) } };
+      var ship = new Ship(1);
+      var grid = new Square[,] { { new Square(ship) } };
 
-            var input = "A1\r\n";
+      var input = "A1\r\n";
 
-            var output = ScenarioExecutor.Execute(input, grid);
+      var output = ScenarioExecutor.Execute(input, grid);
 
-            output.ShouldBe(@"
+      output.ShouldBe(@"
 |_|
 Enter coordinates: Ship sinked!
 ");
-        }
     }
+  }
 }
