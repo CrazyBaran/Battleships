@@ -11,13 +11,11 @@ namespace Battleships
     {
         private readonly StreamReader _input;
         private readonly StreamWriter _output;
-        private readonly bool _displayBoard;
 
-        public StreamUserInteraction(Stream input, Stream output, bool displayBoard = true)
+        public StreamUserInteraction(Stream input, Stream output)
         {
             _input = new StreamReader(input);
             _output = new StreamWriter(output, Encoding.UTF8, 1024, leaveOpen: true);
-            _displayBoard = displayBoard;
         }
 
         public void DisplayShotResult(ShotStatus shotResult)
@@ -45,6 +43,7 @@ namespace Battleships
             while (result == null)
             {
                 _output.Write("Enter coordinates: ");
+                _output.Flush();
                 var line = _input.ReadLine().Trim();
                 if (line.Length >= 2)
                 {
@@ -64,7 +63,7 @@ namespace Battleships
 
         public void DisplayGrid(ISquare[,] grid)
         {
-            if (!_displayBoard) return;
+            _output.WriteLine();
             for(var x = 0;x < grid.GetLength(0);x++)
             {
                 _output.Write("|");

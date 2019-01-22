@@ -19,7 +19,8 @@ namespace Battleships.Tests.Scenarios
 
             var output = ScenarioExecutor.Execute(input, grid);
 
-            output.ShouldBe(@"|_|
+            output.ShouldBe(@"
+|_|
 Enter coordinates: Ship sinked!
 ");
         }
