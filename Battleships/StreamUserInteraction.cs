@@ -7,25 +7,6 @@ using System.Text;
 
 namespace Battleships
 {
-  static class ShotStatusExtension
-  {
-    public static string ToPrettyString(this ShotStatus status)
-    {
-      switch (status)
-      {
-        case ShotStatus.Hit:
-          return "HIT!";
-        case ShotStatus.Miss:
-          return "Miss :(";
-        case ShotStatus.Repeated:
-          return "This square was already shot";
-        case ShotStatus.Sink:
-          return "Ship sinked!";
-        default:
-          throw new NotImplementedException();
-      }
-    }
-  }
   public class StreamUserInteraction : IUserInteraction, IDisposable
   {
     private readonly StreamReader _input;
